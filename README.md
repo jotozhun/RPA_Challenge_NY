@@ -32,3 +32,6 @@ To execute the script
 
 To run tests
 > python -m unittest ./tests/test_dollar_pattern.py
+
+## Output
+In each execution, the results will be saved in the logs folder with the name of the execution datetime, it means the day-month-year-hour-minute-second, inside that you will see a **data.xlsx** file with the news data and an image folder containing all the images downloaded.

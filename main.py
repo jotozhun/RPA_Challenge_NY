@@ -115,6 +115,6 @@ def main(word: str, categories: list[str], number_of_months: int):
 
 if __name__ == "__main__":
     word = "murder"
-    categories = ["Arts"]#, "U.S.", "World"]
+    categories = ["Arts", "U.S."]#, "World"]
     number_of_months = 0
     main(word, categories, number_of_months)
