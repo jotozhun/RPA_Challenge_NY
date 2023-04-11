@@ -10,6 +10,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from SeleniumLibrary.errors import ElementNotFound
 from RPA.Robocorp.WorkItems import WorkItems
+from RPA.Excel.Files import Files
 
 
 def main(word: str, categories: list[str], number_of_months: int):
@@ -56,7 +57,7 @@ def main(word: str, categories: list[str], number_of_months: int):
 
         # Create a directory of the execution results with the today's datetime as name
         os.makedirs(f"{destination_folder}/images")
-
+        # time.sleep(3)
         while nynews_obj.browser_lib.is_element_visible(SHOW_MORE_BTN):
             nynews_obj.click_on_btn(SHOW_MORE_BTN)
             # TODO
@@ -112,13 +113,15 @@ def main(word: str, categories: list[str], number_of_months: int):
 
         df_data = pandas.DataFrame(df_rows_list)
         df_data.to_excel(f"{destination_folder}/data.xlsx", header=OUTPUT_HEADERS, index=False)
+        lib = Files()
+        lib.create_workbook(f"{destination_folder}/data.xlsx", fmt="xlsx")
+        lib.save_workbook()
 
 
 if __name__ == "__main__":
     # word = "murder"
     # categories = ["Arts", "U.S.", "World"]
     # number_of_months = 0
-    # main(word, categories, number_of_months)
     library = WorkItems()
     library.get_input_work_item()
     word = library.get_work_item_variable("word")

@@ -18,6 +18,7 @@ class NYNEWS_OBJ:
         """
         self.browser_lib.open_chrome_browser(self.url)
         self.browser_lib.maximize_browser_window()
+        self.browser_lib.set_browser_implicit_wait(value=5.0)
 
 
     def search_for(self, word, css_exp="css:input.css-1j26cud"):
