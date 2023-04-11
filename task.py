@@ -115,13 +115,13 @@ def main(word: str, categories: list[str], number_of_months: int):
 
 
 if __name__ == "__main__":
-    word = "murder"
-    categories = ["Arts", "U.S.", "World"]
-    number_of_months = 0
-    main(word, categories, number_of_months)
-    # library = WorkItems()
-    # library.get_input_work_item()
-    # word = library.get_work_item_variable("word")
-    # categories = library.get_work_item_variable("categories")
-    # number_of_months = library.get_work_item_variable("number_of_months")
+    # word = "murder"
+    # categories = ["Arts", "U.S.", "World"]
+    # number_of_months = 0
+    # main(word, categories, number_of_months)
+    library = WorkItems()
+    library.get_input_work_item()
+    word = library.get_work_item_variable("word")
+    categories = library.get_work_item_variable("categories")
+    number_of_months = library.get_work_item_variable("number_of_months")
     main(word, categories, number_of_months)
