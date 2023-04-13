@@ -57,16 +57,18 @@ def main(word: str, categories: list[str], number_of_months: int):
 
         # Create a directory of the execution results with the today's datetime as name
         os.makedirs(f"{destination_folder}/images")
-        time.sleep(5)
-        while nynews_obj.browser_lib.is_element_visible(SHOW_MORE_BTN):
-            show_more_btn = nynews_obj.browser_lib.find_element(SHOW_MORE_BTN)
-            show_more_btn.click()
-            # nynews_obj.click_on_btn(SHOW_MORE_BTN)
-            # TODO
-            # This delay is neccesary when button appears more than 1 time
-            # But soon the page will be so large that will last more to load this button
-            time.sleep(3)
-
+        try:
+            while True:
+                time.sleep(5)
+                show_more_btn = nynews_obj.browser_lib.find_element(SHOW_MORE_BTN)
+                show_more_btn.click()
+                # nynews_obj.click_on_btn(SHOW_MORE_BTN)
+                # TODO
+                # This delay is neccesary when button appears more than 1 time
+                # But soon the page will be so large that will last more to load this button
+                time.sleep(3)
+        except e:
+            print("No Load More buttons found")
         news_elements = nynews_obj.browser_lib.find_elements(NEWS_ELEMENT)
         for news_element in news_elements:
             # Stores the news data in this list in order: title, date, description, filename
