@@ -59,7 +59,9 @@ def main(word: str, categories: list[str], number_of_months: int):
         os.makedirs(f"{destination_folder}/images")
         time.sleep(5)
         while nynews_obj.browser_lib.is_element_visible(SHOW_MORE_BTN):
-            nynews_obj.click_on_btn(SHOW_MORE_BTN)
+            show_more_btn = nynews_obj.browser_lib.find_element(SHOW_MORE_BTN)
+            show_more_btn.click()
+            # nynews_obj.click_on_btn(SHOW_MORE_BTN)
             # TODO
             # This delay is neccesary when button appears more than 1 time
             # But soon the page will be so large that will last more to load this button
@@ -121,6 +123,7 @@ def main(word: str, categories: list[str], number_of_months: int):
 if __name__ == "__main__":
     # word = "murder"
     # categories = ["Arts", "U.S.", "World"]
+    # categories = ["Movies"]
     # number_of_months = 0
     library = WorkItems()
     library.get_input_work_item()
