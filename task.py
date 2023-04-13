@@ -10,6 +10,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from SeleniumLibrary.errors import ElementNotFound
 from RPA.Robocorp.WorkItems import WorkItems
+from RPA.Excel.Files import Files
 
 def main(word: str, categories: list[str], number_of_months: int):
     # Lists of lists with the information of earch row
@@ -17,7 +18,8 @@ def main(word: str, categories: list[str], number_of_months: int):
 
     nynews_obj = NYNEWS_OBJ(url=NYTIMES_URL)
     today_date = datetime.now()
-    destination_folder = f"output/{today_date.strftime(EXECUTION_NAME_FORMAT)}"
+    # destination_folder = f"logs/{today_date.strftime(EXECUTION_NAME_FORMAT)}"
+    destination_folder = "output"
     categories_indexes = map_categories_to_index(categories, CATEGORIES_MAP_INDEX)
 
     try:
@@ -54,7 +56,7 @@ def main(word: str, categories: list[str], number_of_months: int):
         nynews_obj.click_on_btn(HIDE_DATE_FILTER_BTN)
 
         # Create a directory of the execution results with the today's datetime as name
-        os.makedirs(f"{destination_folder}/images")
+
         # try:
         #     while True:
         #         time.sleep(5)
@@ -96,7 +98,7 @@ def main(word: str, categories: list[str], number_of_months: int):
 
                 # Filtering url and query params to get the filename
                 image_filename = image_url.split("/")[-1].split("?")[0]
-                with open(f"{destination_folder}/images/{image_filename}", "wb") as file:
+                with open(f"{destination_folder}/{image_filename}", "wb") as file:
                     image_response = requests.get(image_url, stream=True)
 
                     # Since images are large size, we download them by chunks
