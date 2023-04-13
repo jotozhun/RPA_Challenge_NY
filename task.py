@@ -10,8 +10,6 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from SeleniumLibrary.errors import ElementNotFound
 from RPA.Robocorp.WorkItems import WorkItems
-from RPA.Excel.Files import Files
-
 
 def main(word: str, categories: list[str], number_of_months: int):
     # Lists of lists with the information of earch row
@@ -19,7 +17,7 @@ def main(word: str, categories: list[str], number_of_months: int):
 
     nynews_obj = NYNEWS_OBJ(url=NYTIMES_URL)
     today_date = datetime.now()
-    destination_folder = f"logs/{today_date.strftime(EXECUTION_NAME_FORMAT)}"
+    destination_folder = f"output/{today_date.strftime(EXECUTION_NAME_FORMAT)}"
     categories_indexes = map_categories_to_index(categories, CATEGORIES_MAP_INDEX)
 
     try:
@@ -119,10 +117,6 @@ def main(word: str, categories: list[str], number_of_months: int):
 
         df_data = pandas.DataFrame(df_rows_list)
         df_data.to_excel(f"{destination_folder}/data.xlsx", header=OUTPUT_HEADERS, index=False)
-        lib = Files()
-        lib.create_workbook(f"{destination_folder}/data.xlsx", fmt="xlsx")
-        lib.save_workbook()
-
 
 if __name__ == "__main__":
     # word = "murder"
