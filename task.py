@@ -88,11 +88,12 @@ def main(word: str, categories: list[str], number_of_months: int):
                 tmp_new_obj.append("True")
             else:
                 tmp_new_obj.append("False")
-            # In case the image of the new doesn't exists
-            if nynews_obj.browser_lib.is_element_visible(IMAGE_NEWS_ELEMENT):
+            try:
+                # In case the image of the new doesn't exists
                 image = nynews_obj.browser_lib.find_element(IMAGE_NEWS_ELEMENT,
                                                             news_element)
                 image_url = image.get_attribute("src")
+
                 # Filtering url and query params to get the filename
                 image_filename = image_url.split("/")[-1].split("?")[0]
                 with open(f"{destination_folder}/{image_filename}", "wb") as file:
@@ -104,7 +105,11 @@ def main(word: str, categories: list[str], number_of_months: int):
                             break
                         file.write(image_batch)
                 tmp_new_obj.append(image_filename)
-
+            except Exception as e:
+                tmp_new_obj.append(NOT_FOUND_ELEMENT)
+            finally:
+                # In case of failures on getting information, the news information will be kept
+                df_rows_list.append(tmp_new_obj)
     finally:
         # In case the webpage fails at the middle of the script, it will save the data obtained
         nynews_obj.quit_browsers()
@@ -113,7 +118,7 @@ def main(word: str, categories: list[str], number_of_months: int):
         df_data.to_excel(f"{destination_folder}/data.xlsx", header=OUTPUT_HEADERS, index=False)
 
 if __name__ == "__main__":
-    # word = "murder"
+    word = "murder"
     # categories = ["Arts", "U.S.", "World"]
     # categories = ["Movies"]
     # number_of_months = 1
