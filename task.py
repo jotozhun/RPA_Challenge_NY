@@ -69,10 +69,8 @@ def main(word: str, categories: list[str], number_of_months: int):
         #         time.sleep(3)
         # except e:
         #     print("No Load More buttons found")
-        print("Create images folder")
         news_elements = nynews_obj.browser_lib.find_elements(NEWS_ELEMENT)
         for news_element in news_elements:
-            print("Starting store")
             # Stores the news data in this list in order: title, date, description, filename
             tmp_new_obj = []
             title_element = nynews_obj.browser_lib.find_element(TITLE_NEWS_ELEMENT,
@@ -90,12 +88,11 @@ def main(word: str, categories: list[str], number_of_months: int):
                 tmp_new_obj.append("True")
             else:
                 tmp_new_obj.append("False")
-            try:
-                # In case the image of the new doesn't exists
+            # In case the image of the new doesn't exists
+            if nynews_obj.browser_lib.is_element_visible(IMAGE_NEWS_ELEMENT):
                 image = nynews_obj.browser_lib.find_element(IMAGE_NEWS_ELEMENT,
                                                             news_element)
                 image_url = image.get_attribute("src")
-
                 # Filtering url and query params to get the filename
                 image_filename = image_url.split("/")[-1].split("?")[0]
                 with open(f"{destination_folder}/{image_filename}", "wb") as file:
@@ -107,11 +104,6 @@ def main(word: str, categories: list[str], number_of_months: int):
                             break
                         file.write(image_batch)
                 tmp_new_obj.append(image_filename)
-            except ElementNotFound as e:
-                tmp_new_obj.append(NOT_FOUND_ELEMENT)
-            finally:
-                # In case of failures on getting information, the news information will be kept
-                df_rows_list.append(tmp_new_obj)
 
     finally:
         # In case the webpage fails at the middle of the script, it will save the data obtained
@@ -124,7 +116,7 @@ if __name__ == "__main__":
     # word = "murder"
     # categories = ["Arts", "U.S.", "World"]
     # categories = ["Movies"]
-    # number_of_months = 0
+    # number_of_months = 1
     library = WorkItems()
     library.get_input_work_item()
     word = library.get_work_item_variable("word")
