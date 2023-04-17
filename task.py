@@ -87,7 +87,7 @@ def main(word: str, categories: list[str], number_of_months: int):
             tmp_new_obj.append(description_element)
 
             # Check if title or description contains any amount of money
-            if find_dollar_ocurrence(title_element) or find_dollar_ocurrence(description_element):
+            if title_element != "" and description_element != "" and (find_dollar_ocurrence(title_element) or find_dollar_ocurrence(description_element)):
                 tmp_new_obj.append("True")
             else:
                 tmp_new_obj.append("False")
