@@ -65,3 +65,16 @@ class NYNEWS_OBJ:
         renders in the webpage
         """
         self.browser_lib.wait_until_element_is_visible(css_exp)
+
+    def find_text_element(self, css_exp: str, parent_element):
+        """Function that handles exceptions when doesn't find an element
+
+        Args:
+            css_exp (str): _description_
+            parent_element (_type_): _description_
+        """
+        try:
+            element = self.browser_lib.find_element(css_exp, parent_element).text
+            return element
+        except Exception:
+            return ""

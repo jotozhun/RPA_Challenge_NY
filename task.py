@@ -73,12 +73,15 @@ def main(word: str, categories: list[str], number_of_months: int):
         for news_element in news_elements:
             # Stores the news data in this list in order: title, date, description, filename
             tmp_new_obj = []
-            title_element = nynews_obj.browser_lib.find_element(TITLE_NEWS_ELEMENT,
-                                                                news_element).text
-            date_element = nynews_obj.browser_lib.find_element(DATE_NEWS_ELEMENT,
-                                                               news_element).text
-            description_element = nynews_obj.browser_lib.find_element(DESCRIPTION_NEWS_ELEMENT,
-                                                                      news_element).text
+            # title_element = nynews_obj.browser_lib.find_element(TITLE_NEWS_ELEMENT,
+            #                                                     news_element).text
+            # date_element = nynews_obj.browser_lib.find_element(DATE_NEWS_ELEMENT,
+            #                                                    news_element).text
+            # description_element = nynews_obj.browser_lib.find_element(DESCRIPTION_NEWS_ELEMENT,
+            #                                                           news_element).text
+            title_element = nynews_obj.find_text_element(TITLE_NEWS_ELEMENT, news_element)
+            date_element = nynews_obj.find_text_element(DATE_NEWS_ELEMENT, news_element)
+            description_element = nynews_obj.find_text_element(description_element, news_element)
             tmp_new_obj.append(title_element)
             tmp_new_obj.append(date_element)
             tmp_new_obj.append(description_element)
